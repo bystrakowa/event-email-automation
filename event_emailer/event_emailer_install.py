@@ -37,6 +37,31 @@ EVENT_EMAILER_SETUP_SCHEMA = [
     },
 ]
 
+BOT_DESCRIPTION = """
+## Event Emailer - Calendar Email Automation
+
+Automates email communication for Google Calendar events. Monitors a calendar and sends timely notifications to keep attendees informed.
+
+**Key Features:**
+- **Event announcements**: Sends invitation emails when new events are detected
+- **Attendee lists**: Sends pre-event attendee rosters 80 minutes before start time
+- **Google integration**: Works with Calendar, Sheets, and Gmail APIs
+- **Smart tracking**: Uses MongoDB to prevent duplicate emails
+
+**What it does:**
+1. Monitors your Google Calendar for new events
+2. Generates and sends invitation emails with event details
+3. Reads attendee data from Google Sheets
+4. Sends attendee lists to organizers before events start
+
+**Perfect for:**
+- Event coordinators managing multiple sessions
+- Community organizers tracking RSVPs
+- Teams running regular meetings with external participants
+
+The bot handles all the email busywork so you can focus on delivering great events!
+"""
+
 async def install():
     from event_emailer import event_emailer_prompts
     from event_emailer import event_emailer_bot
@@ -46,15 +71,33 @@ async def install():
         endpoint="/v1/jailed-bot",
     )
 
+    ws_id = ckit_bot_install.bot_install_argparse().ws
+
     await ckit_bot_install.marketplace_upsert_dev_bot(
         fclient,
+        ws_id=ws_id,
         marketable_name=BOT_NAME,
         marketable_version=BOT_VERSION,
+        marketable_author="Flexus",
+        marketable_accent_color="#4285F4",
+        marketable_occupation="Event Coordinator",
+        marketable_typical_group="Automation / Events",
+        marketable_github_repo="https://github.com/smallcloudai/flexus-bots.git",
+        marketable_run_this="python -m event_emailer.event_emailer_bot",
+        marketable_featured_actions=[
+            {"feat_question": "Check for new events", "feat_expert": "default", "feat_depends_on_setup": ["CALENDAR_ID"]},
+            {"feat_question": "Send attendee list for upcoming event", "feat_expert": "default", "feat_depends_on_setup": ["CALENDAR_ID", "SHEET_ID"]},
+        ],
+        marketable_intro_message="Hello! I'm Event Emailer, your calendar automation assistant. I monitor your Google Calendar and automatically send event announcements and attendee lists. Let me know if you need help with setup or want to check on any events.",
+        marketable_daily_budget_default=50_000,
+        marketable_default_inbox_default=5_000,
         marketable_title1="Event Emailer",
         marketable_title2="Automates email communication for calendar events",
-        marketable_description="Automates email communication for calendar events. Sends event announcements and pre-event attendee lists.",
+        marketable_description=BOT_DESCRIPTION,
         marketable_setup_default=EVENT_EMAILER_SETUP_SCHEMA,
         marketable_preferred_model_default="grok-4-1-fast-non-reasoning",
+        marketable_picture_big_b64="",
+        marketable_picture_small_b64="",
         marketable_experts=[
             ("default", FMarketplaceExpertInput(
                 fexp_system_prompt=event_emailer_prompts.main_prompt,
