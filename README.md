@@ -79,12 +79,12 @@ Requires Google OAuth authorization with the following scopes:
 
 ## Tools
 
-The bot uses four custom tools:
+The bot uses four custom tools (all with `strict=False` to support optional parameters):
 
-1. **calendar_ops** - List and retrieve calendar events
+1. **calendar_ops** - List and retrieve calendar events (optional `event_id`)
 2. **sheet_ops** - Read attendee data from Google Sheets
 3. **email_ops** - Send emails via Gmail API
-4. **state_ops** - Track processed events in MongoDB
+4. **state_ops** - Track processed events in MongoDB (optional `event_id`)
 
 ## Installation
 

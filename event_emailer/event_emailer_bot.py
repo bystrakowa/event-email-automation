@@ -26,7 +26,7 @@ BOT_VERSION = "0.1.0"
 logger = logging.getLogger(__name__)
 
 CALENDAR_TOOL = ckit_cloudtool.CloudTool(
-    strict=True,
+    strict=False,
     name="calendar_ops",
     description="Google Calendar operations for monitoring events",
     parameters={
@@ -48,7 +48,7 @@ CALENDAR_TOOL = ckit_cloudtool.CloudTool(
 )
 
 SHEET_TOOL = ckit_cloudtool.CloudTool(
-    strict=True,
+    strict=False,
     name="sheet_ops",
     description="Google Sheets operations for reading attendee lists",
     parameters={
@@ -70,7 +70,7 @@ SHEET_TOOL = ckit_cloudtool.CloudTool(
 )
 
 EMAIL_TOOL = ckit_cloudtool.CloudTool(
-    strict=True,
+    strict=False,
     name="email_ops",
     description="Gmail operations for sending emails",
     parameters={
@@ -104,7 +104,7 @@ EMAIL_TOOL = ckit_cloudtool.CloudTool(
 )
 
 STATE_TOOL = ckit_cloudtool.CloudTool(
-    strict=True,
+    strict=False,
     name="state_ops",
     description="MongoDB state operations for tracking processed events",
     parameters={
