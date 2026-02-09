@@ -1,4 +1,6 @@
 import asyncio
+import base64
+from pathlib import Path
 import json
 from flexus_client_kit import ckit_bot_install, ckit_client
 from flexus_client_kit.ckit_bot_install import FMarketplaceExpertInput
@@ -62,6 +64,9 @@ Automates email communication for Google Calendar events. Monitors a calendar an
 The bot handles all the email busywork so you can focus on delivering great events!
 """
 
+pic_big = base64.b64encode(open(Path(__file__).with_name("event_emailer-1024x1536.webp"), "rb").read()).decode("ascii")
+pic_small = base64.b64encode(open(Path(__file__).with_name("event_emailer-256x256.webp"), "rb").read()).decode("ascii")
+
 async def install():
     from event_emailer import event_emailer_prompts
     from event_emailer import event_emailer_bot
@@ -96,8 +101,8 @@ async def install():
         marketable_description=BOT_DESCRIPTION,
         marketable_setup_default=EVENT_EMAILER_SETUP_SCHEMA,
         marketable_preferred_model_default="grok-4-1-fast-non-reasoning",
-        marketable_picture_big_b64="",
-        marketable_picture_small_b64="",
+        marketable_picture_big_b64=pic_big,
+        marketable_picture_small_b64=pic_small,
         marketable_experts=[
             ("default", FMarketplaceExpertInput(
                 fexp_system_prompt=event_emailer_prompts.main_prompt,
