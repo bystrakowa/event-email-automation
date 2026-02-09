@@ -58,6 +58,8 @@ async def install():
             ("default", FMarketplaceExpertInput(
                 fexp_system_prompt=event_emailer_prompts.main_prompt,
                 fexp_python_kernel="",
+                fexp_block_tools="",
+                fexp_allow_tools="",
                 fexp_app_capture_tools=json.dumps([t.openai_style_tool() for t in event_emailer_bot.TOOLS]),
             )),
         ],
