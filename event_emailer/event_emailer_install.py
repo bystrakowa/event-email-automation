@@ -49,8 +49,9 @@ async def install():
     await ckit_bot_install.marketplace_upsert_dev_bot(
         fclient,
         marketable_name=BOT_NAME,
-        marketable_version_str=BOT_VERSION,
-        marketable_title="Event Emailer",
+        marketable_version=BOT_VERSION,
+        marketable_title1="Event Emailer",
+        marketable_title2="Automates email communication for calendar events",
         marketable_description="Automates email communication for calendar events. Sends event announcements and pre-event attendee lists.",
         marketable_setup_default=EVENT_EMAILER_SETUP_SCHEMA,
         marketable_preferred_model_default="grok-4-1-fast-non-reasoning",
