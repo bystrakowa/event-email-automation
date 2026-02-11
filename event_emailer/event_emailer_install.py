@@ -6,7 +6,7 @@ from flexus_client_kit import ckit_bot_install, ckit_client
 from flexus_client_kit.ckit_bot_install import FMarketplaceExpertInput
 
 BOT_NAME = "event_emailer"
-BOT_VERSION = "0.1.1"
+BOT_VERSION = "0.2.0"
 
 EVENT_EMAILER_SETUP_SCHEMA = [
     {
