@@ -21,7 +21,7 @@ from flexus_client_kit import (
 )
 
 BOT_NAME = "event_emailer"
-BOT_VERSION = "0.1.0"
+BOT_VERSION = "0.1.1"
 
 logger = logging.getLogger(__name__)
 
@@ -490,12 +490,15 @@ def main():
 
     from event_emailer import event_emailer_install
 
+    scenario_fn = ckit_bot_exec.parse_bot_args()
+
     asyncio.run(ckit_bot_exec.run_bots_in_this_group(
         fclient,
         marketable_name=BOT_NAME,
         marketable_version_str=BOT_VERSION,
         bot_main_loop=bot_main_loop,
         inprocess_tools=TOOLS,
+        scenario_fn=scenario_fn,
         install_func=event_emailer_install.install,
     ))
 

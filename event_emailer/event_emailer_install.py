@@ -6,7 +6,7 @@ from flexus_client_kit import ckit_bot_install, ckit_client
 from flexus_client_kit.ckit_bot_install import FMarketplaceExpertInput
 
 BOT_NAME = "event_emailer"
-BOT_VERSION = "0.1.0"
+BOT_VERSION = "0.1.1"
 
 EVENT_EMAILER_SETUP_SCHEMA = [
     {
@@ -67,22 +67,19 @@ The bot handles all the email busywork so you can focus on delivering great even
 pic_big = base64.b64encode(open(Path(__file__).with_name("event_emailer-1024x1536.webp"), "rb").read()).decode("ascii")
 pic_small = base64.b64encode(open(Path(__file__).with_name("event_emailer-256x256.webp"), "rb").read()).decode("ascii")
 
-async def install():
+async def install(
+    fclient: ckit_client.FlexusClient,
+    ws_id: str,
+    bot_name: str,
+    bot_version: str,
+    tools: list[ckit_cloudtool.CloudTool],
+):
     from event_emailer import event_emailer_prompts
-    from event_emailer import event_emailer_bot
-
-    fclient = ckit_client.FlexusClient(
-        ckit_client.bot_service_name(BOT_NAME, BOT_VERSION),
-        endpoint="/v1/jailed-bot",
-    )
-
-    ws_id = ckit_bot_install.bot_install_argparse().ws
-
     await ckit_bot_install.marketplace_upsert_dev_bot(
         fclient,
         ws_id=ws_id,
-        marketable_name=BOT_NAME,
-        marketable_version=BOT_VERSION,
+        marketable_name=bot_name,
+        marketable_version=bot_version,
         marketable_author="Flexus",
         marketable_accent_color="#4285F4",
         marketable_occupation="Event Coordinator",
@@ -109,7 +106,7 @@ async def install():
                 fexp_python_kernel="",
                 fexp_block_tools="",
                 fexp_allow_tools="",
-                fexp_app_capture_tools=json.dumps([t.openai_style_tool() for t in event_emailer_bot.TOOLS]),
+                fexp_app_capture_tools=json.dumps([t.openai_style_tool() for t in tools]),
             )),
         ],
         marketable_schedule=[
@@ -122,7 +119,16 @@ async def install():
         ],
     )
 
-    print(f"✅ {BOT_NAME} v{BOT_VERSION} installed successfully")
+    print(f"✅ {bot_name} v{bot_version} installed successfully")
 
 if __name__ == "__main__":
-    asyncio.run(install())
+    from event_emailer import event_emailer_bot
+    
+    fclient = ckit_client.FlexusClient(
+        ckit_client.bot_service_name(BOT_NAME, BOT_VERSION),
+        endpoint="/v1/jailed-bot",
+    )
+    
+    ws_id = ckit_bot_install.bot_install_argparse().ws
+    
+    asyncio.run(install(fclient, ws_id, BOT_NAME, BOT_VERSION, event_emailer_bot.TOOLS))
