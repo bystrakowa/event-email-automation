@@ -63,9 +63,10 @@ Requires Google OAuth authorization with the following scopes:
 ## Technical Details
 
 ### Schedule
-- Runs every 5 minutes to check for:
-  - New events needing announcements
-  - Events needing attendee lists (75-85 minute window before start)
+- Runs every 72 hours (3 days) via `SCHED_ANY` schedule type
+- Each run checks for:
+  - New events needing announcement emails
+  - Events starting in 75-85 minutes needing attendee list emails
 
 ### State Management
 - Uses MongoDB to track processed events
@@ -111,4 +112,16 @@ python -m event_emailer.event_emailer_bot
 
 ## Version
 
-Current version: 0.1.0
+Current version: 0.2.1
+
+### Changelog
+
+- **0.2.1** - Fixed broken Flexus Client Kit API imports
+  - Replaced non-existent `ckit_user_chat` with proper `ckit_client`, `ckit_bot_exec`, etc.
+  - Implemented correct bot main loop pattern following frog bot reference
+  - Created proper CloudTool definitions for all 4 tools
+  - Fixed tool handlers to use `@rcx.on_tool_call()` decorators
+  - Removed invalid decorator patterns (`@rcx.on_user_message()`, `@rcx.on_schedule()`)
+  - Bot now follows standard Flexus bot architecture
+
+- **0.2.0** - Updated schedule to EVERY:72h (3 days)

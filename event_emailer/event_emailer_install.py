@@ -2,11 +2,11 @@ import asyncio
 import base64
 from pathlib import Path
 import json
-from flexus_client_kit import ckit_bot_install, ckit_client
+from flexus_client_kit import ckit_bot_install, ckit_client, ckit_cloudtool
 from flexus_client_kit.ckit_bot_install import FMarketplaceExpertInput
 
 BOT_NAME = "event_emailer"
-BOT_VERSION = "0.2.0"
+BOT_VERSION = "0.2.1"
 
 EVENT_EMAILER_SETUP_SCHEMA = [
     {
