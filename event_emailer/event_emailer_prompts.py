@@ -76,7 +76,7 @@ Send 1 hour and 20 minutes (80 minutes) before each event start time:
 
 ## Your Workflow
 
-On schedule (every 5 minutes for new events, every minute for upcoming events):
+On schedule (every 72 hours (3 days) for new events, every minute for upcoming events):
 
 1. **Check for new events:**
    - List upcoming events from calendar

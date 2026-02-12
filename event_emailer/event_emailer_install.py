@@ -112,7 +112,7 @@ async def install(
         marketable_schedule=[
             {
                 "sched_type": "SCHED_ANY",
-                "sched_when": "EVERY:5m",
+                "sched_when": "EVERY:72h",
                 "sched_first_question": "Check for new events and send announcement emails. Check for events needing attendee lists in 75-85 minutes.",
                 "sched_fexp_name": "default",
             },
